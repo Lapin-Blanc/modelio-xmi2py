@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_xGuvsALUEfGMmci1ztW5tQ" name="library">
+  <eAnnotations xmi:id="_xGuvsQLUEfGMmci1ztW5tQ" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_xGuvsgLUEfGMmci1ztW5tQ" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_xGuvswLUEfGMmci1ztW5tQ" value="3.0.0"/>
+    </contents>
+  </eAnnotations>
+  <packagedElement xmi:type="uml:Class" xmi:id="_xGuvtALUEfGMmci1ztW5tQ" name="Book">
+    <ownedAttribute xmi:id="_xGuvtQLUEfGMmci1ztW5tQ" name="title" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_xGuvtgLUEfGMmci1ztW5tQ" name="pages" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_xGuvtwLUEfGMmci1ztW5tQ" name="summary" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+  </packagedElement>
+</uml:Model>
