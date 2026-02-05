@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI
+  xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+  xmlns:uml="http://www.omg.org/spec/UML/20131001">
+  <uml:Model xmi:id="m1" name="SimpleModel">
+    <packagedElement xmi:type="uml:Class" xmi:id="c1" name="Book">
+      <ownedAttribute xmi:id="a1" name="title" />
+      <ownedAttribute xmi:id="a2" name="pages" />
+      <ownedOperation xmi:id="o1" name="summary" />
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" xmi:id="c2" name="Author">
+      <ownedAttribute xmi:id="a3" name="name" />
+    </packagedElement>
+  </uml:Model>
+</xmi:XMI>
