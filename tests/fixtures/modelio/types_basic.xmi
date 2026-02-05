@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI
+  xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+  xmlns:uml="http://www.omg.org/spec/UML/20131001">
+  <uml:Model xmi:id="m1" name="TypesBasicModel">
+
+    <!-- Primitive types (simulated as packaged elements with names) -->
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="t_string" name="String"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="t_int" name="Integer"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="t_bool" name="Boolean"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="t_real" name="Real"/>
+
+    <packagedElement xmi:type="uml:Class" xmi:id="c1" name="Book">
+      <ownedAttribute xmi:id="a1" name="title" type="t_string" />
+      <ownedAttribute xmi:id="a2" name="pages" type="t_int" />
+      <ownedAttribute xmi:id="a3" name="published" type="t_bool" />
+      <ownedAttribute xmi:id="a4" name="rating" type="t_real" />
+    </packagedElement>
+
+  </uml:Model>
+</xmi:XMI>
