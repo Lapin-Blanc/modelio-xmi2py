@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI
+  xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+  xmlns:uml="http://www.omg.org/spec/UML/20131001">
+  <uml:Model xmi:id="m1" name="AssocModel">
+    <packagedElement xmi:type="uml:Class" xmi:id="c1" name="A"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="c2" name="B"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="a1" name="AtoB">
+      <ownedEnd xmi:type="uml:Property" xmi:id="e1" name="toB" type="c2">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:type="uml:Property" xmi:id="e2" name="toA" type="c1">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/>
+        <upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+  </uml:Model>
+</xmi:XMI>
