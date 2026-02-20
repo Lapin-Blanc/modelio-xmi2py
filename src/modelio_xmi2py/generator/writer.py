@@ -1,9 +1,16 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-from modelio_xmi2py.ir.uml import UmlAttribute, UmlClass
+from modelio_xmi2py.ir.uml import AssociationEnd, UmlAttribute, UmlClass
+
+
+@dataclass(frozen=True)
+class _InitField:
+    name: str
+    python_type: str
 
 
 def render_single_file(classes: Iterable[UmlClass]) -> str:
@@ -40,14 +47,14 @@ def _render_class(cls: UmlClass, all_classes: Iterable[UmlClass]) -> list[str]:
     else:
         class_lines.append(f"class {cls.name}:")
 
-    attrs_sorted = _collect_all_attributes(cls, all_classes)
+    init_fields = _collect_init_fields(cls, all_classes)
     ops_sorted = sorted(cls.operations, key=lambda o: o.name)
 
-    if attrs_sorted:
-        args = ", ".join([f"{a.name}: {a.python_type}" for a in attrs_sorted])
+    if init_fields:
+        args = ", ".join([f"{field.name}: {field.python_type}" for field in init_fields])
         class_lines.append(f"    def __init__(self, {args}):")
-        for a in attrs_sorted:
-            class_lines.append(f"        self.{a.name} = {a.name}")
+        for field in init_fields:
+            class_lines.append(f"        self.{field.name} = {field.name}")
     else:
         class_lines.append("    def __init__(self):")
         class_lines.append("        pass")
@@ -85,6 +92,49 @@ def _collect_all_attributes(cls: UmlClass, all_classes: Iterable[UmlClass]) -> l
             seen.add(attr.name)
 
     return collected
+
+
+def _collect_init_fields(cls: UmlClass, all_classes: Iterable[UmlClass]) -> list[_InitField]:
+    fields: list[_InitField] = []
+    seen: set[str] = set()
+
+    for attr in _collect_all_attributes(cls, all_classes):
+        fields.append(_InitField(name=attr.name, python_type=attr.python_type))
+        seen.add(attr.name)
+
+    for assoc in sorted(cls.associations, key=lambda assoc: assoc.name or ""):
+        for end in sorted(assoc.ends, key=lambda end: (end.owner, end.name or "", end.target)):
+            if end.owner != cls.name:
+                continue
+            field_name = end.name or _default_association_name(end.target)
+            if field_name in seen:
+                continue
+            fields.append(
+                _InitField(
+                    name=field_name,
+                    python_type=_association_python_type(end),
+                )
+            )
+            seen.add(field_name)
+
+    return sorted(fields, key=lambda field: field.name)
+
+
+def _association_python_type(end: AssociationEnd) -> str:
+    upper = end.multiplicity.upper
+    if upper is None or upper > 1:
+        return f"list[{end.target}]"
+
+    if end.multiplicity.lower == 0 and upper == 1:
+        return f"{end.target} | None"
+
+    return end.target
+
+
+def _default_association_name(target: str) -> str:
+    if not target:
+        return "related"
+    return f"{target[0].lower()}{target[1:]}"
 
 
 def _topo_sort_classes(classes: Iterable[UmlClass]) -> list[UmlClass]:

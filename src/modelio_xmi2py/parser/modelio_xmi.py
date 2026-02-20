@@ -88,7 +88,10 @@ def _parse_modelio_xmi_document(document: XmiDocument) -> list[UmlClass]:
                 attributes=sorted(attributes, key=lambda a: a.name),
                 operations=sorted(operations, key=lambda o: o.name),
                 base=base_name,
-                associations=associations_by_class.get(class_name, []),
+                associations=sorted(
+                    associations_by_class.get(class_name, []),
+                    key=lambda assoc: (assoc.name or "", tuple(sorted(end.name or "" for end in assoc.ends))),
+                ),
             )
         )
 
