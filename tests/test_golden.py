@@ -49,3 +49,15 @@ def test_golden_association_basic(tmp_path: Path) -> None:
     actual = out_file.read_text(encoding="utf-8").strip()
 
     assert actual == expected
+
+
+def test_golden_real_library(tmp_path: Path) -> None:
+    fixture = Path("tests/fixtures/modelio/real/library.xmi")
+    out_file = tmp_path / "model_gen.py"
+
+    generate_single_file(input_xmi=fixture, output_file=out_file)
+
+    expected = Path("tests/fixtures/expected/real/model_gen.py").read_text(encoding="utf-8").strip()
+    actual = out_file.read_text(encoding="utf-8").strip()
+
+    assert actual == expected
